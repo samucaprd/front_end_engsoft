@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR"> <!-- Linguagem da Pagina: vai definir o texto como em pt -->
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- dando escala e tamanho do dispositivo -->
+	<title>Eng. Requisitos</title>
+
+<style>
+	.header h1{
+			text-align: center;
+	}
+	.header h3{
+		color: black;
+	}
+	h1{
+		color: darkblue; font-family: Impact, sans-serif; letter-spacing: 1px;
+	}
+	p{
+		font-family: Trebuchet MS, sans-serif;
+		margin: 20px 0px;
+	}
+	h3{
+		color: darkblue; 
+		font-family: Trebuchet MS, sans-serif;
+	}
+	.destaque{
+		color: #4169E1;
+	}
+	ul li{
+		font-family: Trebuchet MS, sans-serif;
+	}
+	nav{
+		font-family: Trebuchet MS, sans-serif;
+	}
+	#main{
+    		max-width: 900px;
+    		margin: auto;
+	}
+	nav a{
+   		text-decoration: none;
+    		color: darkblue;
+    		margin: 5px 0px;
+	}
+	#stk li{
+		margin: 5px 0px;
+	}
+	#tpreq li{
+		margin: 20px 0px;
+	}
+	#nvreq li{
+		margin: 10px 0px;
+	}
+	section{
+		margin: 40px 0px;
+
+	
+	
+</style>
+</head>
+<body>
+	<div class="header">
+		<header>
+			<h1> <b> ENGENHARIA DE REQUISITOS </b> </h1>
+			<h3 style="text-align: center; font-family: Trebuchet MS, sans-serif;"> Aqui iremos aprender sobre o conteúdo de <mark style="background-color: lightblue;">Engenharia de Requisitos</mark>. Essa matéria foi ministrada pelo professor Carlos Danilo Luz, durante o 2° Semestre da Graduação em Engenharia de Software na Unicesumar. </h3>
+		</header>
+	</div>
+
+	<div>
+		<nav style="display: flex; flex-direction: column">
+			<a href="#engreq" target="_self"> - Engenharia de Requisitos</a>
+			<a href="#nvreq" target="_self"> - Níveis de Requisitos</a>
+			<a href="#tpreq" target="_self"> - Tipos de Requisitos</a>
+			<a href="#stk" target="_self"> - Stakeholder</a>
+			<a href="#contato" target="_self"> - Contato</a>
+		</nav>
+	</div>
+
+	<div id="main">
+		<section id="engreq">
+			<h3>Definições de Engenharia de Requisitos</h3>
+			<p> - Para <b>Pfleeger (2004)</b>, um requisito é uma <mark style="background-color: lightblue;"><b>característica do sistema ou a descrição de algo que o sistema é capaz de realizar</b></mark> para atingir os seus objetivos;<br><br>
+			- No <b>SWEBOK (2004)</b>, um requisito é descrito como uma <mark style="background-color: lightblue;"><b>propriedade que o software deve exibir para resolver algum problema no mundo real</b></mark>;<br><br>
+			- Segundo <b>Nuseibeh e Easterbrook (2000)</b> requisitos são <mark style="background-color: lightblue;"><b>expressões das necessidades de um stakeholder para atingir objetivos particulares</b></mark>;<br><br>
+			Ou seja, a <b>Engenharia de Requisitos</b> é uma disciplina que se concentra em <b>definir, documentar e manter</b> os requisitos de um sistema de software. É nesse ponto que as necessidades e desejos do cliente são traduzidos em um roteiro detalhado para a criação de um <b>produto que atenda às expectativas, supere obstáculos técnicos e cumpra regulamentações pertinentes</b>.<br><br>
+			Este processo não é apenas sobre identificar o que o software deve fazer, mas entender <b>como essas funcionalidades se alinham com os objetivos gerais do projeto, a experiência do usuário final e os padrões de qualidade do setor</b>.<br><br>
+			Durante o estudo surgir algumas perguntas como: <mark style="background-color: lightblue;"><i>Por que é difícil compreender o que o cliente realmente deseja?</i></mark> Ou ainda: <mark style="background-color: lightblue;"><i>O cliente não deveria saber o que é necessário? Os usuários finais não deveriam entender as características e funções que trazem benefícios?</i></mark><br> 
+			E surpreendentemente, em muitos casos a resposta a essas perguntas é <b>"NÃO"</b>. Mesmo que os clientes e usuários finais expressem claramente suas necessidades, elas podem mudar ao longo do projeto. É a fase mais <b>crítica</b> e sujeito a <b>erros</b> no desenvolvimento de software.
+		</section>
+
+		<section id="nvreq">
+			<h3>Níveis de Requisitos</h3>
+			<p> Os níveis de requisitos na Engenharia de Requisitos definem o grau de abstração e detalhamento das necessidades de um sistema. Eles organizam as informações de forma progressiva, partindo de uma visão mais geral do negócio até especificações técnicas mais detalhadas, garantindo clareza na comunicação entre clientes, usuários e desenvolvedores.<br><br>
+			Dividindo-se principalmente em:<br></p>
+			
+		<ul>
+			<li>
+				<span class="destaque"><b>Requisito de Usuário:</b></span>
+				<u>Declaração, em linguagem natural com diagramas simples (como tabelas), dos serviços esperados e suas restrições.</u><br><br>
+				<strong>Exemplo: </strong>Um campo para a data e hora do cadastro e uma opção para selecionar o estado civil.
+			</li>
+			<br>
+			<li>
+				<span class="destaque"><b>Requisito de Sistema:</b></span>
+				<u>Declaração detalhada e estruturada dos requisitos do usuário, direcionada à equipe de desenvolvimento. Apresenta especificações funcionais e não funcionais, 				servindo como base formal para implementação e validação do sistema, funcionando também como um contrato técnico entre cliente e desenvolvedor.</u><br><br>
+				<strong>Exemplo: </strong>A tela de cadastro incluirá campos de data e hora preenchidos automaticamente e uma seleção de estado civil: 				casado, solteiro ou separado.
+			</li>
+			<br>
+			<li>
+				<span class="destaque"><b>Requisito de Projeto (Especificação de Projeto):</b></span>
+				<u>Corresponde à definição técnica do software, incluindo arquitetura, modelagem, padrões de desenvolvimento, tecnologias utilizadas e critérios de desempenho. É o 				nível mais detalhado, voltado para orientar a construção efetiva do sistema.</u><br><br>
+				<strong>Exemplo: </strong>O sistema deve processar pagamentos via PIX em até 3 segundos, garantindo disponibilidade de 99,9%.
+			</li>
+		</ul>
+		
+			
+			<p><b>Concluindo:</b> Os níveis de requisitos organizam as necessidades do projeto de forma estruturada, indo dos objetivos estratégicos até os detalhes técnicos do sistema. Essa divisão facilita a comunicação, reduz erros e garante que o software desenvolvido esteja alinhado com as necessidades do negócio e dos usuários. Assim, entender esses níveis é fundamental para o sucesso de qualquer projeto de software. </p>
+		</section>
+
+
+
+		<section id="tpreq">
+			<h3>Tipos de Requisitos</h3>
+			<p> Os tipos de requisitos classificam as diferentes características que um sistema deve atender. Eles ajudam a organizar as funcionalidades, as qualidades esperadas e as regras específicas do contexto onde o software será aplicado. Essa divisão facilita a especificação correta do sistema e garante que todos os aspectos importantes sejam considerados durante o desenvolvimento.<br><br>
+			São eles:<br></p>
+
+		<ul>
+			<li>
+				<span class="destaque"><b>Requisitos Funcionais (RF):</b></span>
+				<u>São aqueles que definem as funções que o sistema ou um componente deve realizar, ou seja, suas entradas, saídas e comportamentos. Eles representam uma solicitação de funcionalidade que o software deve implementar. É uma exigência, necessidade ou desejo que será materializado no sistema</u><br><br>
+				<strong>Exemplos: </strong>Cadastrar clientes; Emitir relatórios; Permitir login de usuário; Alterar o estado de um cliente.
+			</li>
+			
+			<li>
+				<span class="destaque"><b>Requisitos Não Funcionais (NF):</b></span>
+				<u>Os requisitos não funcionais tratam das restrições e atributos de qualidade do sistema. Eles definem como o sistema deve se comportar em termos de desempenho, segurança, confiabilidade, usabilidade, portabilidade e padrões técnicos. Sempre que possível, devem ser descritos de forma mensurável para permitir testes objetivos.</u><br><br>
+				<strong>Exemplos: </strong>O sistema deve responder em até 5 segundos; Deve ser protegido contra acessos não autorizados; Deve funcionar em diferentes configurações de hardware.
+			</li>
+			
+			<li>
+				<span class="destaque"><b>Requisitos de Domínio (ou Negócio):</b></span>
+				<u>Os requisitos de domínio são derivados da área de aplicação do sistema. Eles representam regras específicas do negócio, fórmulas, normas internas ou legislações que precisam ser respeitadas.</u><br><br>
+				<strong>Exemplos: </strong>Cálculo de imposto conforme regra fiscal; Comissão de vendedores definida em percentual fixo; Cálculo de média com fórmula específica.
+		
+			</li>
+		</ul>
+		
+			
+			<p><b>Concluindo:</b> Os tipos de requisitos permitem organizar de forma clara tudo aquilo que o sistema deve atender. Os requisitos funcionais definem as ações e serviços do software, os não funcionais estabelecem padrões de qualidade e restrições, e os requisitos de domínio garantem que o sistema respeite as regras específicas do contexto onde será aplicado. Essa classificação é fundamental para evitar ambiguidades, facilitar a validação e garantir que o sistema atenda corretamente às necessidades do negócio e dos usuários. </p>
+		</section>
+
+
+
+		<section id="stk">
+			<h3>Stakeholders</h3>
+			<p> Stakeholders são as <strong>partes interessadas</strong> em um projeto ou sistema. São indivíduos ou organizações que podem ser afetados direta ou indiretamente pelo desenvolvimento e uso do software.<br><br>No contexto de Engenharia de Software, stakeholders não são apenas clientes. Qualquer pessoa ou entidade que tenha interesse, influência ou impacto no projeto pode ser considerada stakeholder.<br><br>
+			<strong><span class="destaque">Quem pode ser STAKEHOLDER?</span></strong><br></p>
+
+			<ul>
+			<li>Colaboradores;</li>
+			
+			<li>Clientes;</li>
+			
+			<li>Parceiros comerciais;</li>
+			
+			<li>Fornecedores;</li>
+			
+			<li>Concorrentes;</li>
+			
+			<li>Investidores;</li>
+			
+			<li>Gestores;</li>
+			
+			<li>Governo;</li>
+		</ul>
+
+
+			<p><span class="destaque"><strong>Por que STAKEHOLDERS são importantes?</span></strong><br><br>
+			Os requisitos do sistema surgem das necessidades dos stakeholders. Cada grupo pode ter expectativas diferentes:<br></p>
+		<ul>
+			<li>O cliente quer que o sistema resolva seu problema;</li>
+			<li>O usuário quer facilidade de uso;</li>
+			<li>O gestor quer controle e relatórios;</li>
+			<li>O governo pode exigir conformidade com normas e leis;</li>
+		</ul>
+		<p>Ignorar algum desses grupos pode gerar <b>falhas nos requisitos e problemas no projeto.</b></p>
+		
+			
+			<p><b>Concluindo:</b> Identificar corretamente os stakeholders é essencial na Engenharia de Requisitos, pois são eles que definem as necessidades que o sistema deve atender. Compreender seus interesses ajuda a reduzir conflitos, evitar retrabalho e garantir que o software entregue valor real a todos os envolvidos. </p>
+		</section>
+
+		<section id="contato">
+			<h3>Contato</h3>
+			<p>Caso tenha ficado com alguma dúvida sobre o conteúdo, você pode nos enviar uma mensagem através do <strong>FORMULÁRIO</strong> abaixo: </p>
+
+			<form>
+			<fieldset>
+				<label for="nome"><span class="destaque"><strong>Nome </strong></span></label><br>
+				<input type="text" id="nome" name="nome"><br><br>
+				
+				<label for="ra"><span class="destaque"><strong>RA </strong></span></label><br>
+				<input type="text" id="ra" name="ra"><br><br>
+
+				<label for="curso"><span class="destaque"><strong>Curso </strong></span></label><br>
+				<input type="text" id="curso" name="curso"><br><br>
+
+<br>
+
+				<label><span class="destaque"><strong>Sobre qual assunto ficou com dúvida? </strong></span></label><br><br>
+				<input type="checkbox">Conceitos de Engenharia de Requisitos<br><br>	
+				<input type="checkbox">Níveis de Requisitos<br><br>
+				<input type="checkbox">Tipos de Requisitos<br><br>
+				<input type="checkbox">Stakeholders<br><br>
+
+				<span class="destaque"><strong>(Opcional) - Para treinar o seu conhecimento, responda as perguntas sobre o conteúdo:</strong></span><br><br>
+
+
+				<label>1) O que é um requisito e qual é o objetivo da Engenharia de Requisitos?</label><br>
+				<input type="text"><br><br>
+
+				<label>2) Quais são os três níveis de requisitos?</label><br>
+				<input type="text"><br><br>
+
+				<label>3) Qual a diferença entre requisitos funcionais e não funcionais?</label><br>
+				<input type="text"><br><br>
+
+				<label>4) O que são requisitos de domínio (ou de negócio)?</label><br>
+				<input type="text"><br><br>
+
+				<label>5) Quem são os stakeholders e por que são importantes?</label><br>
+				<input type="text"><br><br>
+
+	<br>
+
+			<label><span class="destaque"><strong>GABARITO:</strong></span></label><br><br>
+
+			<label>
+			1) Requisito é uma característica ou necessidade que o sistema deve atender. 
+			A Engenharia de Requisitos tem como objetivo definir, documentar e manter esses requisitos.
+			</label><br><br>
+
+			<label>
+			2) Requisito de Usuário, Requisito de Sistema e Requisito de Projeto.
+			</label><br><br>
+
+			<label>
+			3) Requisitos Funcionais definem o que o sistema faz. 
+			Requisitos Não Funcionais definem como o sistema deve se comportar (desempenho, segurança, etc.).
+			</label><br><br>
+
+			<label>
+			4) São regras específicas do negócio ou da área de aplicação que o sistema deve respeitar.
+			</label><br><br>
+
+			<label>
+			5) Stakeholders são as partes interessadas no projeto. 
+			São importantes porque suas necessidades definem os requisitos do sistema.
+			</label><br><br>
+				
+			<label for="feedback"><span class="destaque"><strong>Deixe o seu feedback!</strong></span></label><br>
+			<input type="text" id="feedback" name="feedback">
+<br><br>
+			<input type="submit" value="Enviar">	
+
+			</fieldset>
+			</form>	
+		</section>
+
+
+	</div>
+</body>
+</html>
