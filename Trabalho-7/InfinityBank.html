@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador Infinity Bank</title>
+<style>
+    body { 
+        margin: 0;
+        display: flex;
+        justify-content: center; 
+        align-items: center;     
+        height: 100vh;
+        background-color: #121212;
+        font-family: sans-serif;
+    }
+
+    .card { 
+        background-color: #1e1e1e;
+        color: white;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        width: 350px;
+    }
+
+    h3 { text-align: center; color: #ffcc00; margin-top: 0; }
+
+    label { display: block; margin: 10px 0 5px; font-size: 14px; color: #bbb; }
+
+    input, select { 
+        padding: 12px; 
+        width: 100%; 
+        box-sizing: border-box;
+        border: 1px solid #333;
+        border-radius: 8px;
+        background-color: #2a2a2a;
+        color: white;
+        margin-bottom: 10px;
+        outline: none;
+    }
+
+    input:focus, select:focus { border-color: #ffcc00; }
+
+    button { 
+        padding: 14px;
+        cursor: pointer;
+        background-color: #ffcc00;
+        color: #121212;
+        border: none;
+        border-radius: 8px;
+        width: 100%;
+        font-weight: bold;
+        margin-top: 10px;
+        transition: 0.3s;
+    }
+
+    button:hover { background-color: #e6b800; }
+
+    #resumo {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #252525;
+        border-radius: 8px;
+        font-size: 14px;
+        line-height: 1.8;
+        display: none;
+        border-left: 4px solid #ffcc00;
+    }
+
+    .linha { display: flex; justify-content: space-between; }
+    .destaque { color: #ffcc00; font-weight: bold; }
+</style>
+</head>
+<body>
+
+    <div class="card">
+        <h3>Infinity Bank</h3>
+        
+        <label>Bandeira do Cartão</label>
+        <select id="bandeira">
+            <option value="visa">Visa (2%)</option>
+            <option value="master">MasterCard (1.85%)</option>
+            <option value="elo">Elo (3%)</option>
+        </select>
+
+        <label>Valor da Venda (R$)</label>
+        <input type="number" id="valorVenda" step="0.01" placeholder="Ex: 1000.00">
+
+        <label>Número de Parcelas</label>
+        <input type="number" id="parcelas" min="1" value="1">
+
+        <button id="btnSimular">Simular Transação</button>
+
+        <div id="resumo"></div>
+    </div>
+
+<script>
+    document.getElementById('btnSimular').addEventListener('click', () => {
+        const bandeira = document.getElementById('bandeira').value;
+        const venda = Number(document.getElementById('valorVenda').value);
+        const qtdParcelas = parseInt(document.getElementById('parcelas').value);
+        const resumo = document.getElementById('resumo');
+
+        if (!venda || venda <= 0) {
+            alert("Por favor, insira um valor de venda válido.");
+            return;
+        }
+
+        // 1. Taxa da Bandeira (via Switch conforme Dica Extra)
+        let porcentagemTaxa = 0;
+        switch (bandeira) {
+            case 'visa': porcentagemTaxa = 0.02; break;
+            case 'master': porcentagemTaxa = 0.0185; break;
+            case 'elo': porcentagemTaxa = 0.03; break;
+        }
+
+        // 2. Cálculos seguindo EXATAMENTE o COMANDO escrito:
+        const valorTaxaBandeira = venda * porcentagemTaxa;
+        
+        // Juros simples de 0.35% ao mês (0.0035)
+        const valorJurosTotais = venda * (0.0035 * qtdParcelas); 
+        
+        // Taxa mensal de 12,50 por mês
+        const valorTaxaFixaTotal = 12.50 * qtdParcelas; 
+        
+        // Valor Total = Venda + Taxa Bandeira + Juros + Taxa Fixa
+        const valorTotalFinal = venda + valorTaxaBandeira + valorJurosTotais + valorTaxaFixaTotal;
+        const valorCadaParcela = valorTotalFinal / qtdParcelas;
+
+        // 3. Exibição do resumo solicitado
+        resumo.style.display = 'block';
+        resumo.innerHTML = `
+            <div class="linha"><span>Valor da Taxa:</span> <span class="destaque">R$ ${valorTaxaBandeira.toFixed(2)}</span></div>
+            <div class="linha"><span>Valor dos Juros:</span> <span class="destaque">R$ ${valorJurosTotais.toFixed(2)}</span></div>
+            <div class="linha"><span>Taxa Fixa:</span> <span class="destaque">R$ ${valorTaxaFixaTotal.toFixed(2)}</span></div>
+            <hr style="border: 0; border-top: 1px solid #444; margin: 10px 0;">
+            <div class="linha"><span>Valor de cada Parcela:</span> <span class="destaque">R$ ${valorCadaParcela.toFixed(2)}</span></div>
+            <div class="linha" style="font-size: 16px;"><span>VALOR TOTAL:</span> <span class="destaque">R$ ${valorTotalFinal.toFixed(2)}</span></div>
+        `;
+    });
+</script>
+        
+</body>
+</html>
