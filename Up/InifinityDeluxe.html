@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Bank - Card Guard</title>
+    <style>
+
+        :root {
+            --bg-deep: #050505;
+            --card-bg: #121212;
+            --primary-red: #ff0000;
+            --dark-red: #8b0000;
+            --text-silver: #e0e0e0;
+            --text-dim: #888;
+            --success-green: #00ff41;
+        }
+
+        * { box-sizing: border-box; font-family: 'Consolas', 'Monaco', monospace; }
+
+        body {
+            background-color: var(--bg-deep);
+            color: var(--text-silver);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .security-card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 480px;
+            padding: 30px;
+            border-radius: 4px;
+            border: 1px solid var(--dark-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.15);
+            position: relative;
+        }
+
+        .security-card::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--primary-red), transparent);
+        }
+
+        h1 {
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-size: 1.2rem;
+            text-align: center;
+            margin-bottom: 25px;
+            border-bottom: 1px solid #222;
+            padding-bottom: 10px;
+        }
+
+        .input-box {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--primary-red);
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            background: #000;
+            border: 1px solid #333;
+            border-radius: 4px;
+            color: var(--primary-red);
+            font-size: 1.1rem;
+            letter-spacing: 2px;
+            outline: none;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-analyze {
+            width: 100%;
+            padding: 15px;
+            background: var(--primary-red);
+            color: white;
+            border: none;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            clip-path: polygon(5% 0%, 100% 0%, 95% 100%, 0% 100%);
+        }
+
+        .btn-analyze:hover {
+            background: #cc0000;
+            letter-spacing: 1px;
+        }
+
+
+        .info-panel {
+            margin-top: 25px;
+            display: none;
+            background: #0a0a0a;
+            padding: 20px;
+            border-left: 3px solid var(--primary-red);
+            animation: scanEffect 0.5s ease-out;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+            font-size: 0.85rem;
+            border-bottom: 1px solid #1a1a1a;
+            padding-bottom: 5px;
+        }
+
+        .info-label { color: var(--text-dim); }
+        .info-value { color: var(--text-silver); font-weight: bold; }
+
+        .status-valid { color: var(--success-green) !important; }
+        .status-invalid { color: var(--primary-red) !important; }
+
+        @keyframes scanEffect {
+            from { opacity: 0; transform: scaleY(0); transform-origin: top; }
+            to { opacity: 1; transform: scaleY(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="security-card">
+        <h1>CARD GUARD v1.0</h1>
+
+        <div class="input-box">
+            <label>NÚMERO DO CARTÃO (PAN)</label>
+            <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+        </div>
+
+        <button class="btn-analyze" onclick="analisarCartao()">Analisar Cartão</button>
+
+        <div id="panel" class="info-panel">
+            <div class="info-item">
+                <span class="info-label">STATUS MATEMÁTICO:</span>
+                <span id="status" class="info-value">--</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">BANDEIRA:</span>
+                <span id="bandeira" class="info-value">--</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">SETOR INDUSTRIAL:</span>
+                <span id="setor" class="info-value">--</span>
+            </div>
+            <div class="info-item">
+                <span class="info-label">EMISSOR (IIN):</span>
+                <span id="emissor" class="info-value">--</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        document.getElementById('cardNumber').addEventListener('input', function (e) {
+            let value = e.target.value.replace(/\D/g, '');
+            let formatted = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formatted;
+        });
+
+        function analisarCartao() {
+            const rawValue = document.getElementById('cardNumber').value;
+            const cardNumber = rawValue.replace(/\s+/g, '');
+
+            if (cardNumber.length < 13 || cardNumber.length > 16) {
+                alert("Número inválido. O cartão deve ter entre 13 e 16 dígitos.");
+                return;
+            }
+
+            const isValid = validarLuhn(cardNumber);
+
+            const info = extrairMetadados(cardNumber);
+
+            exibirResultados(isValid, info, cardNumber);
+        }
+
+        function validarLuhn(num) {
+            let sum = 0;
+            let shouldDouble = false;
+
+            for (let i = num.length - 1; i >= 0; i--) {
+                let digit = parseInt(num.charAt(i));
+
+                if (shouldDouble) {
+                    digit *= 2;
+                    if (digit > 9) digit -= 9;
+                }
+
+                sum += digit;
+                shouldDouble = !shouldDouble;
+            }
+
+            return (sum % 10 === 0);
+        }
+
+        function extrairMetadados(num) {
+            const mii = num[0]; 
+            const iin = num.substring(0, 8); 
+            
+            const setores = {
+                '1': 'Airlines',
+                '2': 'Airlines / Financial',
+                '3': 'Travel & Entertainment (Amex/Diners)',
+                '4': 'Banking and Financial (Visa)',
+                '5': 'Banking and Financial (Mastercard)',
+                '6': 'Merchandising and Banking (Discover/Elo)',
+                '7': 'Petroleum',
+                '8': 'Telecommunications',
+                '9': 'National Assignment'
+            };
+
+            let bandeira = "Desconhecida";
+            if (num.startsWith('4')) bandeira = "VISA";
+            else if (num.startsWith('5')) bandeira = "MASTERCARD";
+            else if (num.startsWith('3')) bandeira = "AMERICAN EXPRESS";
+            else if (num.startsWith('6')) bandeira = "ELO / DISCOVER";
+
+            return {
+                setor: setores[mii] || "Setor Não Identificado",
+                bandeira: bandeira,
+                emissor: `Lote ${num.substring(1, 6)} (BIN: ${num.substring(0, 6)})`
+            };
+        }
+
+        function exibirResultados(valid, info, num) {
+            const panel = document.getElementById('panel');
+            const statusEl = document.getElementById('status');
+
+            statusEl.innerText = valid ? "✓ VÁLIDO (AUTENTICADO)" : "✗ INVÁLIDO (ALERTA)";
+            statusEl.className = valid ? "info-value status-valid" : "info-value status-invalid";
+
+            document.getElementById('bandeira').innerText = info.bandeira;
+            document.getElementById('setor').innerText = info.setor;
+            document.getElementById('emissor').innerText = info.emissor;
+
+            panel.style.display = 'block';
+        }
+    </script>
+</body>
+</html>

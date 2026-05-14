@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinity Bank - Gestão VIP</title>
+    <style>
+        
+        :root {
+            --primary-color: #0a2540; 
+            --accent-color: #00d4ff;
+            --danger-color: #ff4d4d;
+            --success-color: #2ecc71;
+            --edit-color: #f39c12;
+            --bg-color: #f4f7f9;
+            --card-bg: #ffffff;
+            --text-main: #333;
+            --border-color: #edf2f7;
+        }
+
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        /* Card Centralizado */
+        .card {
+            background: var(--card-bg);
+            width: 100%;
+            max-width: 500px;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        }
+
+        header h1 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            border-bottom: 2px solid var(--accent-color);
+            padding-bottom: 10px;
+        }
+
+        /* Área de Input */
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin: 1.5rem 0;
+        }
+
+        input {
+            flex: 1;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--accent-color);
+        }
+
+        button.btn-add {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: opacity 0.2s;
+        }
+
+        button.btn-add:hover {
+            opacity: 0.9;
+        }
+
+    
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border-color);
+            animation: fadeIn 0.3s ease;
+        }
+
+        li:last-child {
+            border-bottom: none;
+        }
+
+        .guest-name {
+            font-weight: 500;
+            color: var(--text-main);
+            transition: all 0.3s;
+            flex: 1;
+        }
+
+       
+        .classe-riscado {
+            text-decoration: line-through;
+            color: #a0aec0;
+            font-style: italic;
+        }
+
+        
+        .actions {
+            display: flex;
+            gap: 5px;
+        }
+
+        .btn-action {
+            border: none;
+            padding: 6px 10px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            color: white;
+            transition: transform 0.1s;
+        }
+
+        .btn-action:active {
+            transform: scale(0.95);
+        }
+
+        .btn-complete { background-color: var(--success-color); }
+        .btn-edit { background-color: var(--edit-color); }
+        .btn-delete { background-color: var(--danger-color); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <header>
+            <h1>Infinity Bank VIP</h1>
+            <p style="text-align: center; color: #666; font-size: 0.9rem;">Controle de Acesso - Inauguração</p>
+        </header>
+
+        <div class="input-group">
+            <input type="text" id="guestInput" placeholder="Nome do convidado VIP...">
+            <button class="btn-add" onclick="handleAddGuest()">Adicionar</button>
+        </div>
+
+        <ul id="guestList">
+            </ul>
+    </div>
+
+    <script>
+        const guestInput = document.getElementById('guestInput');
+        const guestList = document.getElementById('guestList');
+
+        
+        function handleAddGuest() {
+            const name = guestInput.value.trim();
+
+            if (name === "") {
+                alert("Por favor, digite um nome válido.");
+                return;
+            }
+
+            createGuestElement(name);
+            guestInput.value = "";
+            guestInput.focus();
+        }
+
+        
+        function createGuestElement(name) {
+            const li = document.createElement('li');
+
+            li.innerHTML = `
+                <span class="guest-name">${name}</span>
+                <div class="actions">
+                    <button class="btn-action btn-complete" title="Presença">Concluir</button>
+                    <button class="btn-action btn-edit" title="Editar nome">Editar</button>
+                    <button class="btn-action btn-delete" title="Remover">Excluir</button>
+                </div>
+            `;
+
+            
+            const span = li.querySelector('.guest-name');
+            const btnComplete = li.querySelector('.btn-complete');
+            const btnEdit = li.querySelector('.btn-edit');
+            const btnDelete = li.querySelector('.btn-delete');
+
+            btnComplete.onclick = () => span.classList.toggle('classe-riscado');
+
+            btnEdit.onclick = () => {
+                const newName = prompt("Editar nome do VIP:", span.innerText);
+                if (newName && newName.trim() !== "") {
+                    span.innerText = newName.trim();
+                }
+            };
+
+            btnDelete.onclick = () => {
+                if(confirm(`Remover ${span.innerText} da lista?`)) {
+                    li.style.opacity = '0';
+                    setTimeout(() => li.remove(), 300);
+                }
+            };
+
+            guestList.appendChild(li);
+        }
+
+        // Permitir adicionar ao apertar "Enter"
+        guestInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleAddGuest();
+        });
+    </script>
+</body>
+</html>
