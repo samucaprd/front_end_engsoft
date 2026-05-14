@@ -1,26 +1,163 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
-    <title>Meus Trabalhos</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Trabalhos | Front-End</title>
+    <style>
+
+        :root {
+            --bg-color: #0f172a;        
+            --card-bg: #1e293b;         
+            --accent-color: #38bdf8;    
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border-color: #334155;
+            --hover-bg: #2d3748;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            letter-spacing: -1px;
+        }
+
+        header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        ul {
+            list-style: none;
+            display: grid;
+            gap: 12px; 
+        }
+
+        li {
+            transition: transform 0.2s ease;
+        }
+
+        li a {
+            display: flex;
+            align-items: center;
+            padding: 18px 24px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            text-decoration: none;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        li a::before {
+            content: "🚀";
+            margin-right: 15px;
+            font-size: 1.2rem;
+            filter: grayscale(100%);
+            transition: filter 0.3s;
+        }
+
+        li a:hover {
+            border-color: var(--accent-color);
+            background: var(--hover-bg);
+            transform: translateX(8px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        li a:hover::before {
+            filter: grayscale(0%);
+        }
+
+        li a::after {
+            content: "→";
+            margin-left: auto;
+            color: var(--accent-color);
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: all 0.3s ease;
+        }
+
+        li a:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 20px;
+            width: 100%;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            li a { padding: 14px 18px; font-size: 0.95rem; }
+        }
+    </style>
 </head>
 <body>
-    <h1>Meus Trabalhos</h1>
 
-    <ul>
-        <li><a href="Trabalho-1/">Trabalho 1</a></li>
-        <li><a href="work_front_end_samuel/">Trabalho 2</a></li>
-        <li><a href="Trabalho-3/">Trabalho 3</a></li>
-        <li><a href="Trabalho-4/">Trabalho 4</a></li>
-        <li><a href="Trabalho-5/">Trabalho 5</a></li>
-        <li><a href="Trabalho-6/">Trabalho 6</a></li>
-        <li><a href="Trabalho-7-Validar-CPF/">Trabalho 7 - Validador de CPF</a></li>
-        <li><a href="Trabalho-7-Conversor-Dinamico/">Trabalho 7 - Conversor Dinâmico</a></li>
-        <li><a href="Trabalho-7-Media-Escolar/">Trabalho 7 - Média Escolar</a></li>
-        <li><a href="Trabalho-7-Infinity-Bank/">Trabalho 7 - Infinity Bank</a></li>
-        <li><a href="Trabalho-8-ListaDeConvidadosVip/">Trabalho 8 - Lista de Convidados VIP</a></li>
-        <li><a href="Trabalho-8-CreditoEventos/">Trabalho 8 - Crédito para Eventos</a></li>
-        <li><a href="Trabalho-8-InfinityDeluxe/">Trabalho 8 - Segurança Infinity</a></li>
-        <li><a href="ProvaDacio/">Prova Front End (Refeita)</a></li>
-    </ul>
+    <div class="container">
+        <header>
+            <h1>Meus Trabalhos</h1>
+            <p>Repositório de exercícios de Front-End — Infinity Bank</p>
+        </header>
+
+        <ul>
+            <li><a href="Trabalho-1/">Trabalho 1</a></li>
+            <li><a href="work_front_end_samuel/">Trabalho 2</a></li>
+            <li><a href="Trabalho-3/">Trabalho 3</a></li>
+            <li><a href="Trabalho-4/">Trabalho 4</a></li>
+            <li><a href="Trabalho-5/">Trabalho 5</a></li>
+            <li><a href="Trabalho-6/">Trabalho 6</a></li>
+            <li><a href="Trabalho-7-Validar-CPF/">Trabalho 7 - Validador de CPF</a></li>
+            <li><a href="Trabalho-7-Conversor-Dinamico/">Trabalho 7 - Conversor Dinâmico</a></li>
+            <li><a href="Trabalho-7-Media-Escolar/">Trabalho 7 - Média Escolar</a></li>
+            <li><a href="Trabalho-7-Infinity-Bank/">Trabalho 7 - Infinity Bank</a></li>
+            <li><a href="Trabalho-8-ListaDeConvidadosVip/">Trabalho 8 - Lista de Convidados VIP</a></li>
+            <li><a href="Trabalho-8-CreditoEventos/">Trabalho 8 - Crédito para Eventos</a></li>
+            <li><a href="Trabalho-8-InfinityDeluxe/">Trabalho 8 - Segurança Infinity</a></li>
+            <li><a href="ProvaDacio/">Prova Front End (Refeita)</a></li>
+            </ul>
+
+        <footer>
+            Samuel &copy; 2026 | Desenvolvido com foco em UI/UX
+        </footer>
+    </div>
+
 </body>
 </html>
